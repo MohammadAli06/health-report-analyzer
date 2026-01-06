@@ -1,11 +1,11 @@
-# Use Python 3.11
-FROM python:3.11-slim
+# Use Python 3.11 Bullseye (more stable for system packages)
+FROM python:3.11-bullseye
 
 # Install system dependencies for OCR and PDF processing
-RUN apt-get update && apt-get install -y \
+RUN apt-get update --fix-missing && apt-get install -y \
     tesseract-ocr \
     poppler-utils \
-    libgl1-mesa-glx \
+    libgl1 \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Set working directory
