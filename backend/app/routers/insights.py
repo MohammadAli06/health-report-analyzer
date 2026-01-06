@@ -195,6 +195,9 @@ async def ask_followup_question(question_data: dict):
                     for t in test_results
                 ])
         
+        # Prepare context string
+        context_section = f"Patient's test results:\n{context}" if context else ""
+
         # Generate answer using OpenAI
         if not openai_service.client:
             answer = get_fallback_answer(question)
@@ -207,7 +210,7 @@ IMPORTANT RULES:
 - Do NOT recommend specific medications
 - Always suggest consulting a doctor for personalized advice
 
-{f"Patient's test results:\\n{context}" if context else ""}
+{context_section}
 
 Patient's question: {question}
 
